@@ -8,6 +8,12 @@ function App() {
     <>
       <div className="flex-container">
         <nav className="navbar">
+          <img
+            src="/Mnemo.png"
+            alt="Logo"
+            className="logo"
+            style={{ width: "150px", height: "150px" }}
+          />
           <Link to="/" className="nav-margin">
             Home
           </Link>
