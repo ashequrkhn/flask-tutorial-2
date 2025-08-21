@@ -75,20 +75,20 @@ button:focus-visible {
 }
 
 .navbar a {
-  background-color: rgb(255, 255, 255); /* or your color */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #903; /* or your color */
+  transition: background-color 1s ease, color 1s ease;
   padding: 2rem;
   display: flex;
   flex-grow: 1;
 }
 .navbar a:visited {
   color: #ffffff;
-  text-decoration-color: #ffffff;
+  text-decoration-color: #000000;
 }
 .navbar a:hover {
-  color: #000000;
+  color: #ffffff;
   text-decoration-color: #000000;
-  background-color: #ffffff;
+  background-color: #ff5c5e;
 }
 
 .nav-margin {

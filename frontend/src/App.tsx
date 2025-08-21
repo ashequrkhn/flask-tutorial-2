@@ -2,6 +2,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Maps from "./pages/Maps";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
             className="logo"
             style={{ width: "150px", height: "150px" }}
           />
+          <Link to="/login" className="nav-margin">
+            Login
+          </Link>
+
           <Link to="/" className="nav-margin">
             Home
           </Link>
@@ -30,6 +35,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/maps" element={<Maps />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

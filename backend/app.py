@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify, Blueprint, session
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 import os
+import libsql
+from dotenv import load_dotenv
+load_dotenv()
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-db_path = os.path.join(basedir, "instance", "data.db")
+url = os.getenv("TURSO_DATABASE_URL")
+auth_token = os.getenv("TURSO_AUTH_TOKEN")
 
+conn = libsql.connect("hello.db", sync_url=url, auth_token=auth_token)
 
 app = Flask(__name__)
 auth_bp = Blueprint('auth', __name__)
@@ -13,31 +16,16 @@ auth_bp = Blueprint('auth', __name__)
 # This allows the frontend to communicate with the backend without CORS issues
 CORS(app, supports_credentials=True)
 
-app.secret_key = "supersecret"
+url = os.getenv("TURSO_DATABASE_URL")
+auth_token = os.getenv("TURSO_AUTH_TOKEN")
+
+conn = libsql.connect("hello.db", sync_url=url, auth_token=auth_token)
+### Database Setup ###
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}" # Example DB URI
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
-
-    def __repr__(self):
-        return f'<User {self.email}>'
-
-class Location(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    latitude = db.Column(db.Float, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
-    suburban_area = db.Column(db.String(100), nullable=True)
-    council_area = db.Column(db.String(100), nullable=True)
-
-    def __repr__(self):
-        return f'<Location {self.latitude}, {self.longitude}, {self.suburban_area}, {self.council_area}>'
+imageroot = "./images"
+imageID = 1231
+open (os.path.join(imageroot+imageID, "logo.png"), "wb")
 
 ### Routes ###
 
@@ -48,7 +36,7 @@ def login():
     email = data.get('email')
     password = data.get('password')
 
-    user = User.query.filter_by(email=email).first()
+    
 
     if user and user.password == password:
         session['user'] = user.email
